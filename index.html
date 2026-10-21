@@ -69,7 +69,7 @@ footer{background:#09281d;color:white;padding:54px 0 22px}.footer-grid{display:g
 </div><p style="font-size:.86rem">Ordinary and student applications are considered by the Council. Membership privileges and office eligibility follow the Constitution.</p></div>
 <form class="join-box" id="joinForm">
 <h3>Membership application</h3><p class="intro">Fields marked * are required. Your application will be submitted to the Forum's online database.</p>
-<div id="configNote" class="config-note" hidden>Online storage is not configured yet. The administrator must add the Supabase project URL and public anon key to this website before applications can be stored.</div>
+<div id="configNote" class="config-note" hidden>Online storage still needs the Supabase publishable key. Add it from this project’s Connect dialog or Settings → API Keys before applications can be stored.</div>
 <div class="form-grid">
 <div class="field"><label for="full_name">Full name *</label><input id="full_name" name="full_name" autocomplete="name" maxlength="120" required placeholder="Your full name"></div>
 <div class="field"><label for="email">Email address *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com"></div>
@@ -93,13 +93,13 @@ footer{background:#09281d;color:white;padding:54px 0 22px}.footer-grid{display:g
 <script>
 /*
 SETUP REQUIRED BEFORE PUBLISHING:
-1. Create a Supabase project.
+1. Supabase project is preconfigured below with project ref evcxtordemhrrxdkvvpj.
 2. Run the SQL in supabase_setup.sql in Supabase SQL Editor.
-3. Replace these two placeholders with Project URL and the publishable/anon key.
+3. Replace the publishable-key placeholder below with the key from this project's Connect dialog or Settings > API Keys.
    NEVER put a service_role/secret key in this public website.
 */
-const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+const SUPABASE_URL = "https://evcxtordemhrrxdkvvpj.supabase.co";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && SUPABASE_ANON_KEY.length > 20 && !SUPABASE_ANON_KEY.includes("YOUR_");
 const statusBox = document.getElementById("formStatus");
 const submitBtn = document.getElementById("submitBtn");
@@ -125,7 +125,7 @@ document.getElementById("joinForm").addEventListener("submit", async function(ev
   event.preventDefault();
   statusBox.className = "form-status";
   if (!configured || !window.supabase) {
-    showStatus("Applications are not being stored yet because online storage has not been configured. Please contact the website administrator; do not rely on this submission.", "error");
+    showStatus("Applications are not being stored yet because the Supabase publishable key has not been configured. Please contact the website administrator; do not rely on this submission.", "error");
     return;
   }
   if (!document.getElementById("consent").checked) {
